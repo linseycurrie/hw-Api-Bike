@@ -2,25 +2,23 @@
 
 <div class="row map">
     <h2>Map</h2>
-    <l-map :zoom="zoom" :center="center">
+    <l-map v-if="networks"
+        :zoom="zoom" :center="center">
       <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-      <l-marker v-if="networks" class="marker"
+      <l-marker class="marker"
             v-for="(bike, index) in networks" :key="index"
             :lat-lng="latLng(bike.location.latitude, bike.location.longitude)" >
-        </l-marker>
+            <l-icon :icon-size="iconSize" :icon-url="icon"/></l-marker>
 
-        <!-- <l-marker v-if="selectedNetwork" :lat-lng="latLng(selectedNetwork.location.latitude, selectedNetwork.location.longtitude)">U+1F6B2</l-marker> -->
     </l-map>
-
-    
-
 
 </div>
   
 </template>
 
 <script>
-import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
+import { LMap, LTileLayer, LMarker, LIcon } from 'vue2-leaflet';
+import bicycle from '../assets/bicycle.jpg'
 
 export default {
     name: "map-network",
@@ -29,9 +27,13 @@ export default {
         return {
         zoom:5,
         center: L.latLng(53.528881, -2.036170),
+        currentZoom: 5,
+        currentCenter: L.latLng(53.528881, -2.036170),
         url:'https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=02874bea11474c4c8f8ed1de617533f2',
         attribution:'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-        marker: L.latLng(53.528881, -2.036170)
+        marker: L.latLng(53.528881, -2.036170),
+        icon: bicycle,
+        iconSize: [30,30],
         }
     },
 
@@ -39,11 +41,20 @@ export default {
         LMap,
         LTileLayer,
         LMarker,
+        LIcon,
     },
 
     methods: {
         latLng: function(lat, lng){
             return L.latLng(lat, lng);
+        },
+
+        updateCenter: function(center){
+            this.currentCenter = center;
+        },
+
+        updateZoom: function(zoom){
+            this.currentZoom = zoom;
         },
         
     }

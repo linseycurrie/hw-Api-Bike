@@ -1,5 +1,6 @@
 <template>
 <div id="app">
+  <h1>City Bikes</h1>
 
     <network-list :networks="networks"></network-list>
     <map-network :networks="networks" :selectedNetwork="selectedNetwork"></map-network>
