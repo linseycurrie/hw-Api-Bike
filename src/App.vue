@@ -1,18 +1,50 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+<div id="app">
+
+    <network-list :networks="networks"></network-list>
+    <map-network :networks="networks"></map-network>
+
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MapNetwork from './components/MapNetwork.vue'
+import NetworkList from './components/NetworkList.vue'
+import { eventBus } from './main'
 
 export default {
   name: 'App',
+
+  data(){
+    return{
+      selectedNetwork: null,
+      networks: [],
+
+
+    }
+  },
   components: {
-    HelloWorld
-  }
+    'network-list': NetworkList,
+    'map-network': MapNetwork
+    
+  },
+
+  methods: {
+      getNetworks: function() {
+        fetch("http://api.citybik.es/v2/networks")
+        .then(res => res.json())
+        .then(data => this.networks = data.networks)
+    }
+  },
+
+  mounted() {
+    this.getNetworks();
+
+    eventBus.$on('selected-network', (network) => {
+      this.selectedNetwork = network
+    })
+  },
 }
 </script>
 
