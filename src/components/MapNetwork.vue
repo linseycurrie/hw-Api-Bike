@@ -1,14 +1,16 @@
 <template>
 
 <div class="row map">
-    <h2>Map</h2>
+
     <l-map v-if="networks"
         :zoom="zoom" :center="center">
       <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
       <l-marker class="marker"
             v-for="(bike, index) in networks" :key="index"
             :lat-lng="latLng(bike.location.latitude, bike.location.longitude)" >
-            <l-icon :icon-size="iconSize" :icon-url="icon"/></l-marker>
+            <l-icon class="lrgBike" v-if="bike == selectedNetwork" :icon-size="largeIcon" :icon-url="icon"/>
+            <l-icon class="normalBike" v-else :icon-size="normalIcon" :icon-url="icon"/>
+        </l-marker>
 
     </l-map>
 
@@ -16,9 +18,11 @@
   
 </template>
 
+
 <script>
 import { LMap, LTileLayer, LMarker, LIcon } from 'vue2-leaflet';
-import bicycle from '../assets/bicycle.jpg'
+import Bike from '../assets/woman-biking.png'
+import { eventBus } from '../main'
 
 export default {
     name: "map-network",
@@ -32,8 +36,10 @@ export default {
         url:'https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=02874bea11474c4c8f8ed1de617533f2',
         attribution:'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
         marker: L.latLng(53.528881, -2.036170),
-        icon: bicycle,
+        icon: Bike,
         iconSize: [30,30],
+        normalIcon: [30, 30],
+        largeIcon: [100, 100]
         }
     },
 
@@ -42,6 +48,12 @@ export default {
         LTileLayer,
         LMarker,
         LIcon,
+    },
+
+        computed:{
+
+       
+           
     },
 
     methods: {
@@ -68,7 +80,8 @@ export default {
      height: 95vh;
  }
 
- .marker{
+ .lrgBike{
+     border: 1px solid black ;
      
  }
 

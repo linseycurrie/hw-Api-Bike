@@ -3,6 +3,8 @@
   <h1>City Bikes</h1>
 
     <network-list :networks="networks"></network-list>
+    
+    <network :selectedNetwork="selectedNetwork"></network>
     <map-network :networks="networks" :selectedNetwork="selectedNetwork"></map-network>
 
 
@@ -10,6 +12,7 @@
 </template>
 
 <script>
+import Network from './components/Network.vue'
 import MapNetwork from './components/MapNetwork.vue'
 import NetworkList from './components/NetworkList.vue'
 import { eventBus } from './main'
@@ -27,8 +30,17 @@ export default {
   },
   components: {
     'network-list': NetworkList,
+    'network': Network,
     'map-network': MapNetwork
     
+  },
+
+  computed: {
+
+    selectedNetwork(){
+
+    },
+
   },
 
   methods: {
@@ -42,10 +54,9 @@ export default {
   mounted() {
     this.getNetworks();
 
-    eventBus.$on('selected-network', (network) => {
-      this.selectedNetwork = network
-    })
-  },
+    eventBus.$on('selected-network', (network) => (this.selectedNetwork = network));
+},
+
 }
 </script>
 
