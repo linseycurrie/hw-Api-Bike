@@ -24,7 +24,7 @@ export default {
 
     methods: {
         handleChange(){
-            eventBus.$emit('selected_Network', this.selectedNetwork)
+            eventBus.$emit('selected-network', this.selectedNetwork)
         }
     }
 

@@ -4,10 +4,12 @@
     <h2>Map</h2>
     <l-map :zoom="zoom" :center="center">
       <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-      <l-marker 
+      <l-marker v-if="networks" class="marker"
             v-for="(bike, index) in networks" :key="index"
             :lat-lng="latLng(bike.location.latitude, bike.location.longitude)" >
         </l-marker>
+
+        <!-- <l-marker v-if="selectedNetwork" :lat-lng="latLng(selectedNetwork.location.latitude, selectedNetwork.location.longtitude)">U+1F6B2</l-marker> -->
     </l-map>
 
     
@@ -22,7 +24,7 @@ import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
 
 export default {
     name: "map-network",
-    props:['networks'],
+    props:['networks', 'selectedNetwork'],
     data() {
         return {
         zoom:5,
@@ -53,6 +55,10 @@ export default {
 
  .map{
      height: 95vh;
+ }
+
+ .marker{
+     
  }
 
 </style>

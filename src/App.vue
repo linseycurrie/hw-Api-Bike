@@ -2,7 +2,7 @@
 <div id="app">
 
     <network-list :networks="networks"></network-list>
-    <map-network :networks="networks"></map-network>
+    <map-network :networks="networks" :selectedNetwork="selectedNetwork"></map-network>
 
 
   </div>
