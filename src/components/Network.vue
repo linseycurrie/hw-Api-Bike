@@ -1,7 +1,8 @@
 <template>
   <div>
-      <h3>Name Of Company: {{selectedNetwork.name}}</h3>
-      
+      <h3>Name Of Company: </h3>
+      <h4>{{selectedNetwork.name}}</h4>
+
   </div>
 </template>
 

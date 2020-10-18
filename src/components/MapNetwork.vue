@@ -5,12 +5,21 @@
     <l-map v-if="networks"
         :zoom="zoom" :center="center">
       <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-      <l-marker class="marker"
+      <l-marker v-if="selectedNetwork" class="marker"
+        :lat-lng="latLng(selectedNetwork.location.latitude, selectedNetwork.location.longitude)">
+        <l-icon class="lrgBike" :icon-size="largeIcon" :icon-url="icon"></l-icon>
+
+      
+      
+      ></l-marker>>  
+
+
+      <!-- <l-marker class="marker"
             v-for="(bike, index) in networks" :key="index"
             :lat-lng="latLng(bike.location.latitude, bike.location.longitude)" >
             <l-icon class="lrgBike" v-if="bike == selectedNetwork" :icon-size="largeIcon" :icon-url="icon"/>
             <l-icon class="normalBike" v-else :icon-size="normalIcon" :icon-url="icon"/>
-        </l-marker>
+        </l-marker> -->
 
     </l-map>
 
