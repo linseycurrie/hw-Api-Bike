@@ -1,8 +1,6 @@
 <template>
-  <div>
-      <h3>Name Of Company: </h3>
-      <h4>{{selectedNetwork.name}}</h4>
-
+  <div class="flex-container" v-if="selectedNetwork">
+      <h3>Name Of Company:  {{selectedNetwork.name}} </h3>
   </div>
 </template>
 
@@ -17,5 +15,11 @@ export default {
 </script>
 
 <style>
+
+.flex-container{
+  display: flex;
+  direction: row;
+  justify-content: center;
+}
 
 </style>
